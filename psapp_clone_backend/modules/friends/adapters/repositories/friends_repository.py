@@ -1,11 +1,11 @@
 from typing import List
-from psapp_clone_backend.adapters.clients.psn_awp_client import PSNAPIClient
+from psapp_clone_backend.domain.interfaces.psn_api_client import IPSNAPIClient
 from psapp_clone_backend.modules.friends.domain.interfaces.friends_repository import IFriendsRepository
 
 
 class FriendsRepositoryPSN(IFriendsRepository):
-    client: PSNAPIClient
-    def __init__(self, client: PSNAPIClient) -> None:
+    client: IPSNAPIClient
+    def __init__(self, client: IPSNAPIClient) -> None:
         super().__init__()
         self.client = client
 

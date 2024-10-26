@@ -1,9 +1,10 @@
 
 from psnawp_api import PSNAWP
-import psnawp_api
+
+from psapp_clone_backend.domain.interfaces.psn_api_client import IPSNAPIClient
 
 
-class PSNAPIClient:
+class PSNAPIClient(IPSNAPIClient):
     psnawp_client: PSNAWP
     def __init__(self, sso_code: str) -> None:
         self.psnawp_client = PSNAWP(sso_code)

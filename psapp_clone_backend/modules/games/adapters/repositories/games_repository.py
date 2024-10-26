@@ -1,11 +1,11 @@
-from psapp_clone_backend.adapters.clients.psn_awp_client import PSNAPIClient
+from psapp_clone_backend.domain.interfaces.psn_api_client import IPSNAPIClient
 from psapp_clone_backend.modules.games.domain.interfaces.games_repository import IGamesRepository
 
 
 class GamesRepositoryPSN(IGamesRepository):
-    client: PSNAPIClient
+    client: IPSNAPIClient
 
-    def __init__(self, client: PSNAPIClient) -> None:
+    def __init__(self, client: IPSNAPIClient) -> None:
         super().__init__()
         self.client = client
 
