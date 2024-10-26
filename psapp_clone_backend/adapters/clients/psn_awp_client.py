@@ -72,3 +72,23 @@ class PSNAPIClient:
                 }
             })
         return result
+    
+
+    def get_trophies_by_group(self, title_id: str, group_id: str):
+        user = self.me()
+        trophy_helper = user.trophy_titles_for_title([title_id])
+        communicationId = trophy_helper.get_np_communication_id(trophy_helper.authenticator, title_id, user.account_id)
+        trophies = user.trophies(np_communication_id=communicationId, platform=next(trophy_helper).title_platform, trophy_group_id=group_id, include_progress=True)
+        result = []
+        for x in trophies:
+            result.append({
+                'id': str(x.trophy_id),
+                'type': x.trophy_type,
+                'name': x.trophy_name,
+                'detail': x.trophy_detail,
+                'iconUrl': x.trophy_icon_url,
+                'earned': x.earned
+            })
+        return result    
+
+        

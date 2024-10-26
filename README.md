@@ -21,7 +21,7 @@ I'll use [FastAPI](https://fastapi.tiangolo.com/).
 
 [X] See Played Games
 
-[ ] See Trophies
+[X] See Trophies
 
 [ ] Get Chats
 

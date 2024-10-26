@@ -7,6 +7,7 @@ from psapp_clone_backend.modules.games.adapters.entities.game_entity import Game
 from psapp_clone_backend.modules.games.adapters.entities.trophy_group_entity import TrophyGroupEntity
 from psapp_clone_backend.modules.games.adapters.repositories.games_repository import GamesRepositoryPSN
 from psapp_clone_backend.modules.games.features.check_games.check_games_usecase import CheckGamesUseCase
+from psapp_clone_backend.modules.games.features.check_trophies_by_group.check_trophies_by_group_usecase import CheckTrophiesByGroupUseCase
 from psapp_clone_backend.modules.games.features.check_trophy_groups.check_trophy_groups_usecase import CheckTrophyGroupsUseCase
 
 
@@ -21,10 +22,19 @@ def get_games(request: Request):
     games = usecase.execute()
     return JSONResponse([x.data.model_dump() for x in games])
     
-@router.get("/{item_id}/trophy_groups", response_model=List[TrophyGroupEntity])
-def get_trophy_groups(request: Request, item_id: str):
+@router.get("/{title_id}/trophy_groups", response_model=List[TrophyGroupEntity])
+def get_trophy_groups(request: Request, title_id: str):
     client = PSNAPIClient(request.state.context_data.get("sso_code"))
     games_repo = GamesRepositoryPSN(client)
     usecase = CheckTrophyGroupsUseCase(games_repo)
-    groups = usecase.execute(item_id)
+    groups = usecase.execute(title_id)
     return JSONResponse([x.data.model_dump() for x in groups])
+
+@router.get("/{title_id}/trophy_groups/{group_id}/trophies")
+def get_trophies_by_group(request: Request, title_id: str, group_id: str):
+    client = PSNAPIClient(request.state.context_data.get("sso_code"))
+    games_repo = GamesRepositoryPSN(client)
+    usecase = CheckTrophiesByGroupUseCase(games_repo)
+    trophies = usecase.execute(title_id, group_id)
+    return JSONResponse([x.data.model_dump() for x in trophies])
+    
