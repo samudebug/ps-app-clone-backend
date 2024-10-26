@@ -12,16 +12,23 @@ I'll use [FastAPI](https://fastapi.tiangolo.com/).
 [X] Authentication
 
 [X] Check your own profile
+
 [ ] See your devices
 
 [ ] See your friends lists
+
 [ ] See users blocked
 
 [ ] See Played Games
+
 [ ] See Trophies
 
 [ ] Get Chats
+
 [ ] See Conversation
+
 [ ] Manage Chat
+
 [ ] Send Message
+
 [ ] Manage Groups
