@@ -19,7 +19,7 @@ I'll use [FastAPI](https://fastapi.tiangolo.com/).
 
 [X] See users blocked
 
-[ ] See Played Games
+[X] See Played Games
 
 [ ] See Trophies
 
