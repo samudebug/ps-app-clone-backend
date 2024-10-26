@@ -15,7 +15,7 @@ I'll use [FastAPI](https://fastapi.tiangolo.com/).
 
 [X] See your devices
 
-[ ] See your friends lists
+[X] See your friends lists
 
 [ ] See users blocked
 

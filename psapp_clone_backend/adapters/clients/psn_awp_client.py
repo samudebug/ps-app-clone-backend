@@ -13,3 +13,7 @@ class PSNAPIClient:
     def get_account_devices(self):
         user = self.psnawp_client.me()
         return user.get_account_devices()
+    
+    def get_account_friends(self):
+        user = self.psnawp_client.me()
+        return user.friends_list()

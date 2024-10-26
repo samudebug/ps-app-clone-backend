@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from psapp_clone_backend.infrastructure.logging.logging_config import get_logger
 from psapp_clone_backend.features.check_profile import router as check_profile_router
-
+from psapp_clone_backend.features.check_friends import router as check_friends_router
 from psapp_clone_backend.features.check_devices import router as check_devices_router
 from psapp_clone_backend.infrastructure.middlewares.auth_middleware import AuthMiddleware
 
@@ -27,3 +27,4 @@ app.add_middleware(AuthMiddleware)
 
 app.include_router(check_profile_router.router)
 app.include_router(check_devices_router.router)
+app.include_router(check_friends_router.router)
