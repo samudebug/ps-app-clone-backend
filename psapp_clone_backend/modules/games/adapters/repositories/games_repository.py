@@ -11,3 +11,7 @@ class GamesRepositoryPSN(IGamesRepository):
 
     def get_games(self):
         return self.client.get_my_games()
+    
+    def get_trophy_groups(self, title_id: str):
+        groups = self.client.get_trophy_groups(title_id)
+        return groups
