@@ -17,3 +17,7 @@ class PSNAPIClient:
     def get_account_friends(self):
         user = self.psnawp_client.me()
         return user.friends_list()
+
+    def get_account_blocked(self):
+        user = self.psnawp_client.me()
+        return user.blocked_list()
