@@ -13,7 +13,7 @@ I'll use [FastAPI](https://fastapi.tiangolo.com/).
 
 [X] Check your own profile
 
-[ ] See your devices
+[X] See your devices
 
 [ ] See your friends lists
 

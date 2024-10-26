@@ -9,7 +9,7 @@ class AuthMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next: Callable[[Request], Awaitable[Response]]) -> Response:
         headers = request.headers
         token = headers.get("Authorization")
-        if token is None:
+        if token is None and request.url == '/docs':
             return JSONResponse({"error": "Unauthorized"}, status_code=401)
         request.state.context_data = {"sso_code": token}
         return await call_next(request)

@@ -11,3 +11,7 @@ class ProfileRepositoryPSN(IProfileRepository):
     def get_my_profile(self):
         data = self.client.me()
         return data.get_profile_legacy()
+    
+    def get_my_devices(self):
+        devices = self.client.get_account_devices()
+        return devices
