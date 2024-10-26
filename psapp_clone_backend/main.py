@@ -6,6 +6,8 @@ from psapp_clone_backend.infrastructure.middlewares.auth_middleware import AuthM
 from psapp_clone_backend.modules.profile.infrastructure.router import router as profile_router
 from psapp_clone_backend.modules.friends.infrastructure.router import router as friends_router
 from psapp_clone_backend.modules.games.infrastructure.router import router as games_router
+from psapp_clone_backend.modules.chats.infrastructure.router import router as chats_router
+
 
 
 
@@ -29,3 +31,5 @@ app.add_middleware(AuthMiddleware)
 app.include_router(profile_router)
 app.include_router(friends_router)
 app.include_router(games_router)
+app.include_router(chats_router)
+

@@ -30,3 +30,6 @@ class IPSNAPIClient(ABC):
     def get_trophies_by_group(self, title_id: str, group_id: str):
         pass
     
+    @abstractmethod
+    def get_chats(self):
+        pass

@@ -91,5 +91,19 @@ class PSNAPIClient(IPSNAPIClient):
                 'earned': x.earned
             })
         return result    
+    
+
+    def get_chats(self):
+        user = self.me()
+        chats = user.get_groups()
+        result = []
+        for x in chats:
+            info = x.get_group_information()
+            print(user.online_id)
+            result.append({
+                'id': info['groupId'],
+                'members': ', '.join([y['onlineId'] for y in info['members'] if y['onlineId'] != user.online_id])
+            })
+        return result
 
         

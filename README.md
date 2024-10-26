@@ -23,7 +23,7 @@ I'll use [FastAPI](https://fastapi.tiangolo.com/).
 
 [X] See Trophies
 
-[ ] Get Chats
+[X] Get Chats
 
 [ ] See Conversation
 
