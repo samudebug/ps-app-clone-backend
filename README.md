@@ -17,7 +17,7 @@ I'll use [FastAPI](https://fastapi.tiangolo.com/).
 
 [X] See your friends lists
 
-[ ] See users blocked
+[X] See users blocked
 
 [ ] See Played Games
 

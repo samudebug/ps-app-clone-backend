@@ -1,6 +1,5 @@
 from typing import List, Optional
 from pydantic import BaseModel, Field
-from pydantic_core import PydanticUndefined
 
 class AvatarInfo(BaseModel):
     size: str
