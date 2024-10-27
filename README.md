@@ -25,7 +25,7 @@ I'll use [FastAPI](https://fastapi.tiangolo.com/).
 
 [X] Get Chats
 
-[ ] See Conversation
+[X] See Conversation
 
 [ ] Manage Chat
 

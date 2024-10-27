@@ -106,4 +106,17 @@ class PSNAPIClient(IPSNAPIClient):
             })
         return result
 
+    def get_conversation_for_chat(self, chat_id: str, limit: int = 20):
+        chat = self.psnawp_client.group(group_id=chat_id)
+        conversation = chat.get_conversation(limit=limit)
+        result = []
+        for message in conversation['messages']:
+            result.append({
+                'id': message['messageUid'],
+                'body': message['body'],
+                'messageType': message['messageType'],
+                'createdAt': message['createdTimestamp'],
+                'sender': message['sender']['onlineId']
+            })
+        return result
         

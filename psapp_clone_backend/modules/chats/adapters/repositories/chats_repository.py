@@ -12,3 +12,7 @@ class ChatsRepository(IChatsRepository):
     def get_chats(self):
         chats = self.client.get_chats()
         return chats
+    
+    def get_conversation_for_chat(self, chat_id: str, limit: int):
+        conversations = self.client.get_conversation_for_chat(chat_id, limit)
+        return conversations
