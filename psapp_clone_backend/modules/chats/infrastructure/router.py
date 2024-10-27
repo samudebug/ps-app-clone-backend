@@ -20,10 +20,10 @@ def get_chats(request: Request):
     return JSONResponse([x.data.model_dump() for x in response])
 
 @router.get("/{chat_id}")
-def get_conversation_for_chat(request: Request, chat_id: str):
+def get_conversation_for_chat(request: Request, chat_id: str, limit: int = 20):
     client = PSNAPIClient(request.state.context_data.get("sso_code"))
     chats_repo = ChatsRepository(client)
     usecase = CheckConversationUseCase(chats_repo)
-    response = usecase.execute(chat_id, limit=20)
+    response = usecase.execute(chat_id, limit=limit)
     return JSONResponse([x.data.model_dump() for x in response])
     
