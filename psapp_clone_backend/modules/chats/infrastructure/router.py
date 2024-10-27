@@ -6,10 +6,12 @@ from psapp_clone_backend.adapters.clients.psn_awp_client import PSNAPIClient
 from psapp_clone_backend.modules.chats.adapters.entities.change_chat_name_request_entity import ChangeChatNameRequestEntity
 from psapp_clone_backend.modules.chats.adapters.entities.chat_entity import ChatEntity
 from psapp_clone_backend.modules.chats.adapters.entities.message_entity import MessageEntity
+from psapp_clone_backend.modules.chats.adapters.entities.send_message_request_entity import SendMessageRequestEntity
 from psapp_clone_backend.modules.chats.adapters.repositories.chats_repository import ChatsRepository
 from psapp_clone_backend.modules.chats.features.change_chat_name.change_chat_name_usecase import ChangeChatNameUseCase
 from psapp_clone_backend.modules.chats.features.check_chats.check_chats_usecase import CheckChatsUseCase
 from psapp_clone_backend.modules.chats.features.check_conversation.check_conversation_usecase import CheckConversationUseCase
+from psapp_clone_backend.modules.chats.features.send_message.send_message_usecase import SendMessageUseCase
 
 
 router = APIRouter(prefix="/chats", tags=["chats"])
@@ -36,8 +38,17 @@ def change_chat_name(request: Request, chat_id: str, change_name_request: Change
     chats_repo = ChatsRepository(client)
     usecase = ChangeChatNameUseCase(chats_repo)
     response = usecase.execute(chat_id, change_name_request.name)
-    if response.error is not None:
+    if response is not None and response.error is not None:
         return JSONResponse({"error": response.error.__str__()}, status_code=400)
     return JSONResponse({"message": "Chat name changed successfully"})
-    
+
+@router.post("/{chat_id}/send_message")
+def send_message(request: Request, chat_id: str, send_message_request: SendMessageRequestEntity):
+    client = PSNAPIClient(request.state.context_data.get("sso_code"))
+    chats_repo = ChatsRepository(client)
+    usecase = SendMessageUseCase(chats_repo)
+    response = usecase.execute(chat_id, send_message_request.message)
+    if response is not None and response.error is not None:
+        return JSONResponse({"error": response.error.__str__()}, status_code=400)
+    return JSONResponse({"message": "Message sent successfully"})
     

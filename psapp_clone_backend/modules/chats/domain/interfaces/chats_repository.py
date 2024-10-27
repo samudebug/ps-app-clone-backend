@@ -13,3 +13,7 @@ class IChatsRepository(ABC):
     @abstractmethod
     def change_conversation_name(self, chat_id: str, name: str):
         pass
+
+    @abstractmethod
+    def send_message(self, chat_id: str, message: str):
+        pass

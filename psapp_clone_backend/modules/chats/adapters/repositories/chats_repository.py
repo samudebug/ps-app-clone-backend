@@ -19,3 +19,6 @@ class ChatsRepository(IChatsRepository):
     
     def change_conversation_name(self, chat_id: str, name: str):
         self.client.change_conversation_name(chat_id, name)
+    
+    def send_message(self, chat_id: str, message: str):
+        self.client.send_message(chat_id, message)

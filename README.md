@@ -29,6 +29,6 @@ I'll use [FastAPI](https://fastapi.tiangolo.com/).
 
 [X] Manage Chat
 
-[ ] Send Message
+[X] Send Message
 
 [ ] Manage Groups

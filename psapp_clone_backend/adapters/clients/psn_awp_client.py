@@ -125,3 +125,8 @@ class PSNAPIClient(IPSNAPIClient):
         if chat.get_group_information()["groupType"] == 0:
             raise Exception("Cannot change name of a DM")
         chat.change_name(name)
+    
+
+    def send_message(self, chat_id: str, message: str):
+        chat = self.psnawp_client.group(group_id=chat_id)
+        chat.send_message(message)
