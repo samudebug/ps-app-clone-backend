@@ -16,5 +16,8 @@ class CheckProfileUseCase:
         self.repo = repo
 
     def execute(self) -> DataState[ProfileEntity]:
-        profile = self.repo.get_my_profile()
-        return DataState(data=ProfileEntity(**profile["profile"]))
+        try:
+            profile = self.repo.get_my_profile()
+            return DataState(data=profile)
+        except Exception as e:
+            return  DataState(error=e)

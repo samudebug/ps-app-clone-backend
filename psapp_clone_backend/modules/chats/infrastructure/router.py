@@ -24,7 +24,9 @@ def get_chats(request: Request):
     chats_repo = ChatsRepository(client)
     usecase = CheckChatsUseCase(chats_repo)
     response = usecase.execute()
-    return JSONResponse([x.data.model_dump() for x in response])
+    if response is not None and response.error is not None:
+        return JSONResponse(response.error.__str__(), status_code=400)
+    return JSONResponse([x.model_dump() for x in response.data])
 
 @router.get("/{chat_id}", response_model=List[MessageEntity])
 def get_conversation_for_chat(request: Request, chat_id: str, limit: int = 20):
@@ -32,7 +34,9 @@ def get_conversation_for_chat(request: Request, chat_id: str, limit: int = 20):
     chats_repo = ChatsRepository(client)
     usecase = CheckConversationUseCase(chats_repo)
     response = usecase.execute(chat_id, limit=limit)
-    return JSONResponse([x.data.model_dump() for x in response])
+    if response is not None and response.error is not None:
+        return JSONResponse(response.error.__str__(), status_code=400)
+    return JSONResponse([x.model_dump() for x in response.data])
     
 @router.put("/{chat_id}")
 def change_chat_name(request: Request, chat_id: str, change_name_request: ChangeChatNameRequestEntity):
@@ -60,6 +64,8 @@ def create_group_chat(request: Request, create_group_chat_request: CreateGroupCh
     chats_repo = ChatsRepository(client)
     usecase = CreateGroupChatUseCase(chats_repo)
     response = usecase.execute(create_group_chat_request.user_ids)
+    if response is not None and response.error is not None:
+        return JSONResponse(response.error.__str__(), status_code=400)
     return JSONResponse(response.data.model_dump())
     
     

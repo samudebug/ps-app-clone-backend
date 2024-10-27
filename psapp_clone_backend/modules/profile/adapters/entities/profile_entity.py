@@ -6,8 +6,8 @@ class AvatarInfo(BaseModel):
     avatar_url: str = Field(..., alias="avatarUrl")
 
 class ProfileEntity(BaseModel):
-    id: str = Field(..., alias="accountId")
-    username:str = Field(..., alias="onlineId")
-    np_id: str = Field(..., alias="npId")
-    avatar_urls: List[AvatarInfo] = Field(..., alias="avatarUrls")
-    about_me: str = Field(..., alias="aboutMe")
+    id: str 
+    username:str 
+    np_id: str 
+    avatar_urls: List[AvatarInfo] 
+    about_me: str

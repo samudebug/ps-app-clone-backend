@@ -13,17 +13,51 @@ class PSNAPIClient(IPSNAPIClient):
     def me(self):
         return self.psnawp_client.me()
     
+    def get_my_profile(self):
+        user = self.me()
+        profile_dict = user.get_profile_legacy()['profile']
+        return {
+            'id': profile_dict['accountId'],
+            'username': profile_dict['onlineId'],
+            'np_id': profile_dict['npId'],
+            'avatar_urls': profile_dict['avatarUrls'],
+            'about_me': profile_dict['aboutMe']
+        }
+    
     def get_account_devices(self):
         user = self.me()
-        return user.get_account_devices()
+        devices = user.get_account_devices()
+        result = []        
+        for x in devices:
+            result.append({
+                'device_id': x['deviceId'],
+                'device_type': x['deviceType'],
+                'activation_date': x['activationDate']
+            })
+
+        return result
     
     def get_account_friends(self):
         user = self.me()
-        return user.friends_list()
+        friends = user.friends_list()
+        result = []
+        for x in friends:
+            presence = x.get_presence()
+            profile_dict = x.profile()
+            profile_dict['id'] = x.account_id
+            profile_dict['presence'] = presence['basicPresence']['primaryPlatformInfo']['onlineStatus']
+            result.append(profile_dict)
+        return result
 
     def get_account_blocked(self):
         user = self.me()
-        return user.blocked_list()
+        blocked = user.blocked_list()
+        result = []
+        for x in blocked:
+            profile_dict = x.profile()
+            profile_dict['id'] = x.account_id
+            result.append(profile_dict)
+        return result
     
     def get_my_games(self):
         user = self.me()
@@ -104,7 +138,7 @@ class PSNAPIClient(IPSNAPIClient):
                 'id': info['groupId'],
                 'members': ', '.join([y['onlineId'] for y in info['members'] if y['onlineId'] != user.online_id]),
                 'type': info['groupType'],
-                'name': info['groupName']
+                'name': info['groupName']['value']
             })
         return result
 

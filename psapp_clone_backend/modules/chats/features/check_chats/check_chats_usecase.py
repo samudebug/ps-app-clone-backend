@@ -12,6 +12,9 @@ class CheckChatsUseCase:
     def __init__(self, repo: IChatsRepository) -> None:
         self.repo = repo
     
-    def execute(self) -> List[DataState[ChatEntity]]:
-        chats = self.repo.get_chats()
-        return [DataState(data=ChatEntity(**x)) for x in chats]
+    def execute(self) -> DataState[List[ChatEntity]]:
+        try:
+            chats = self.repo.get_chats()
+            return DataState(data=chats)
+        except Exception as e:
+            return DataState(error=e)

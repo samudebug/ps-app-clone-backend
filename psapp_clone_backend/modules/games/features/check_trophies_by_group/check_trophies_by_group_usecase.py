@@ -11,6 +11,9 @@ class CheckTrophiesByGroupUseCase:
     def __init__(self, repo: IGamesRepository) -> None:
         self.repo = repo
     
-    def execute(self, title_id: str, group_id: str) -> List[DataState[TrophyEntity]]:
-        trophies = self.repo.get_trophies_by_group(title_id, group_id)
-        return [DataState(data=TrophyEntity(**x)) for x in trophies]
+    def execute(self, title_id: str, group_id: str) -> DataState[List[TrophyEntity]]:
+        try:
+            trophies = self.repo.get_trophies_by_group(title_id, group_id)
+            return DataState(data=trophies)
+        except Exception as e:
+            return DataState(error=e)

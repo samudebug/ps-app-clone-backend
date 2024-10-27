@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from psapp_clone_backend.infrastructure.logging.logging_config import get_logger
 from psapp_clone_backend.infrastructure.middlewares.auth_middleware import AuthMiddleware
 from psapp_clone_backend.modules.profile.infrastructure.router import router as profile_router
@@ -27,6 +28,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
 app.add_middleware(AuthMiddleware)
 app.include_router(profile_router)
 app.include_router(friends_router)

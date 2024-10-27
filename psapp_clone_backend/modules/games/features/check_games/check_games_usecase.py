@@ -10,6 +10,9 @@ class CheckGamesUseCase:
     def __init__(self, repo: IGamesRepository) -> None:
         self.repo = repo
     
-    def execute(self) -> List[DataState[GameEntity]]:
-        games = self.repo.get_games()
-        return [DataState(data=GameEntity(**x)) for x in games]
+    def execute(self) -> DataState[List[GameEntity]]:
+        try:
+            games = self.repo.get_games()
+            return DataState(data=games)
+        except Exception as e:
+            return DataState(error=e)

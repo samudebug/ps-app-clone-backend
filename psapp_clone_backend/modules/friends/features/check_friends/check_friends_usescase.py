@@ -12,6 +12,10 @@ class CheckFriendsUseCase:
     def __init__(self, repo: IFriendsRepository) -> None:
         self.repo = repo
     
-    def execute(self) -> List[DataState[FriendEntity]]:
-        friends = self.repo.get_friends()
-        return [DataState(data=FriendEntity(**x)) for x in friends] 
+    def execute(self) -> DataState[List[FriendEntity]]:
+        try:
+            friends = self.repo.get_friends()
+            return DataState(data=friends)
+        except Exception as e:
+            self.logger.error(e)
+            return DataState(error=e)

@@ -21,6 +21,8 @@ def get_my_profile(request: Request):
     profile_repo = ProfileRepositoryPSN(client)
     usecase = CheckProfileUseCase(profile_repo)
     response = usecase.execute()
+    if response is not None and response.error is not None:
+        return JSONResponse(response.error.__str__(), status_code=400)
     return JSONResponse(response.data.model_dump())
 
 
@@ -31,4 +33,6 @@ def get_my_devices(request: Request):
     profile_repo = ProfileRepositoryPSN(client)
     usecase = CheckDevicesUseCase(profile_repo)
     response = usecase.execute()
-    return JSONResponse([x.data.model_dump() for x in response])
+    if response is not None and response.error is not None:
+        return JSONResponse(response.error.__str__(), status_code=400)
+    return JSONResponse([x.model_dump() for x in response.data])

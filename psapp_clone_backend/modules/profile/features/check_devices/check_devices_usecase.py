@@ -16,6 +16,9 @@ class CheckDevicesUseCase:
     def __init__(self, repo: IProfileRepository) -> None:
         self.repo = repo
 
-    def execute(self) -> List[DataState[DeviceEntity]]:
-        devices = self.repo.get_my_devices()
-        return [DataState(data=DeviceEntity(**x)) for x in devices]
+    def execute(self) -> DataState[List[DeviceEntity]]:
+        try:
+            devices = self.repo.get_my_devices()
+            return DataState(data=devices)
+        except Exception as e:
+            return DataState(error=e)

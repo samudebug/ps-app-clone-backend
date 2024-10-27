@@ -11,5 +11,8 @@ class CreateGroupChatUseCase:
     
 
     def execute(self, user_ids: List[str]) -> DataState[ChatEntity]:
-        new_group = self.repo.create_group_chat(user_ids)
-        return DataState(data=ChatEntity(**new_group))
+        try:
+            new_group = self.repo.create_group_chat(user_ids)
+            return DataState(data=new_group)
+        except Exception as e:
+            return DataState(error=e)

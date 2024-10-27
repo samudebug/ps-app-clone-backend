@@ -10,6 +10,9 @@ class CheckBlockedUseCase:
     def __init__(self, repo: IFriendsRepository) -> None:
         self.repo = repo
     
-    def execute(self) -> List[DataState[FriendEntity]]:
-        blocked = self.repo.get_blocked()
-        return [DataState(data=FriendEntity(**x)) for x in blocked]
+    def execute(self) -> DataState[List[FriendEntity]]:
+        try:
+            blocked = self.repo.get_blocked()
+            return DataState(data=blocked)
+        except Exception as e:
+            return DataState(error=e)

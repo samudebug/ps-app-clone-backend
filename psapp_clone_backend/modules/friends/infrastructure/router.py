@@ -18,7 +18,9 @@ def get_my_friends(request: Request):
     friends_repo = FriendsRepositoryPSN(client)
     usecase = CheckFriendsUseCase(friends_repo)
     response = usecase.execute()
-    return JSONResponse([x.data.model_dump() for x in response])
+    if response is not None and response.error is not None:
+        return JSONResponse(response.error.__str__(), status_code=400)
+    return JSONResponse([x.model_dump() for x in response.data])
 
 @router.get("/blocked", response_model=List[FriendEntity])
 def get_blocked(request: Request):
@@ -26,6 +28,8 @@ def get_blocked(request: Request):
     friends_repo = FriendsRepositoryPSN(client)
     usecase = CheckBlockedUseCase(friends_repo)
     response = usecase.execute()
-    return JSONResponse([x.data.model_dump() for x in response])
+    if response is not None and response.error is not None:
+        return JSONResponse(response.error.__str__(), status_code=400)
+    return JSONResponse([x.model_dump() for x in response.data])
     
     
