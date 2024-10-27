@@ -16,3 +16,6 @@ class ChatsRepository(IChatsRepository):
     def get_conversation_for_chat(self, chat_id: str, limit: int):
         conversations = self.client.get_conversation_for_chat(chat_id, limit)
         return conversations
+    
+    def change_conversation_name(self, chat_id: str, name: str):
+        self.client.change_conversation_name(chat_id, name)

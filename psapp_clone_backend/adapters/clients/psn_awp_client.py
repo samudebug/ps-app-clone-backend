@@ -99,10 +99,10 @@ class PSNAPIClient(IPSNAPIClient):
         result = []
         for x in chats:
             info = x.get_group_information()
-            print(user.online_id)
             result.append({
                 'id': info['groupId'],
-                'members': ', '.join([y['onlineId'] for y in info['members'] if y['onlineId'] != user.online_id])
+                'members': ', '.join([y['onlineId'] for y in info['members'] if y['onlineId'] != user.online_id]),
+                'type': info['groupType']
             })
         return result
 
@@ -119,4 +119,9 @@ class PSNAPIClient(IPSNAPIClient):
                 'sender': message['sender']['onlineId']
             })
         return result
-        
+
+    def change_conversation_name(self, chat_id: str, name: str):
+        chat = self.psnawp_client.group(group_id=chat_id)
+        if chat.get_group_information()["groupType"] == 0:
+            raise Exception("Cannot change name of a DM")
+        chat.change_name(name)
