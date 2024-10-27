@@ -31,4 +31,6 @@ I'll use [FastAPI](https://fastapi.tiangolo.com/).
 
 [X] Send Message
 
-[ ] Manage Groups
+[ ] Create Groups
+
+[ ] Leave Groups
