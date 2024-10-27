@@ -33,4 +33,4 @@ I'll use [FastAPI](https://fastapi.tiangolo.com/).
 
 [X] Create Groups
 
-[ ] Leave Groups
+[X] Leave Groups
