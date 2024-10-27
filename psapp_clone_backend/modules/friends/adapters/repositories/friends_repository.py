@@ -15,6 +15,7 @@ class FriendsRepositoryPSN(IFriendsRepository):
         for x in list(friends):
             presence = x.get_presence()
             profile_dict = x.profile()
+            profile_dict['id'] = x.account_id
             profile_dict['presence'] = presence['basicPresence']['primaryPlatformInfo']['onlineStatus']
             result.append(profile_dict)
         return result

@@ -1,3 +1,4 @@
+from typing import List
 from psapp_clone_backend.domain.interfaces.psn_api_client import IPSNAPIClient
 from psapp_clone_backend.modules.chats.domain.interfaces.chats_repository import IChatsRepository
 
@@ -22,3 +23,7 @@ class ChatsRepository(IChatsRepository):
     
     def send_message(self, chat_id: str, message: str):
         self.client.send_message(chat_id, message)
+    
+    def create_group_chat(self, user_ids: List[str]):
+        new_group = self.client.create_group_chat(user_ids)
+        return new_group

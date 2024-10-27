@@ -6,6 +6,7 @@ class AvatarInfo(BaseModel):
     avatar_url: str = Field(..., alias="url")
 
 class FriendEntity(BaseModel):
+    id: str
     username: str = Field(..., alias="onlineId")
     about_me: str = Field(..., alias="aboutMe")
     avatar_urls: List[AvatarInfo] = Field(..., alias="avatars")

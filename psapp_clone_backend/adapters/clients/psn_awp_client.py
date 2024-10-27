@@ -1,4 +1,5 @@
 
+from typing import List
 from psnawp_api import PSNAWP
 
 from psapp_clone_backend.domain.interfaces.psn_api_client import IPSNAPIClient
@@ -102,7 +103,8 @@ class PSNAPIClient(IPSNAPIClient):
             result.append({
                 'id': info['groupId'],
                 'members': ', '.join([y['onlineId'] for y in info['members'] if y['onlineId'] != user.online_id]),
-                'type': info['groupType']
+                'type': info['groupType'],
+                'name': info['groupName']
             })
         return result
 
@@ -130,3 +132,17 @@ class PSNAPIClient(IPSNAPIClient):
     def send_message(self, chat_id: str, message: str):
         chat = self.psnawp_client.group(group_id=chat_id)
         chat.send_message(message)
+    
+    def create_group_chat(self, user_ids: List[str]):
+        user = self.me()
+        users = []
+        for x in user_ids:
+            users.append(self.psnawp_client.user(online_id=x))
+        new_group = self.psnawp_client.group(users_list=users)
+        info = new_group.get_group_information()
+        return {
+                'id': info['groupId'],
+                'members': ', '.join([y['onlineId'] for y in info['members'] if y['onlineId'] != user.online_id]),
+                'type': info['groupType'],
+                'name': info['groupName']['value']
+            }

@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import List
 
 
 class IPSNAPIClient(ABC):
@@ -44,4 +45,8 @@ class IPSNAPIClient(ABC):
 
     @abstractmethod
     def send_message(self, chat_id: str, message: str):
+        pass
+    
+    @abstractmethod
+    def create_group_chat(self, user_ids: List[str]):
         pass

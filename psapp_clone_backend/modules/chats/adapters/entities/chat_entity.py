@@ -8,6 +8,7 @@ class ChatEntity(BaseModel):
     id: str
     members: str
     type: int
+    name: str
 
     @field_serializer('type')
     def serialize_type(self, type: int, _info):
