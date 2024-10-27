@@ -27,7 +27,7 @@ I'll use [FastAPI](https://fastapi.tiangolo.com/).
 
 [X] See Conversation
 
-[ ] Manage Chat
+[X] Manage Chat
 
 [ ] Send Message
 
