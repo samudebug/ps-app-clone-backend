@@ -29,3 +29,6 @@ class ChatsRepository(IChatsRepository):
     def create_group_chat(self, user_ids: List[str]):
         new_group = self.client.create_group_chat(user_ids)
         return ChatEntity(**new_group) 
+    
+    def leave_group_chat(self, chat_id: str):
+        self.client.leave_group_chat(chat_id)

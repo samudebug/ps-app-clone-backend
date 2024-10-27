@@ -180,3 +180,7 @@ class PSNAPIClient(IPSNAPIClient):
                 'type': info['groupType'],
                 'name': info['groupName']['value']
             }
+    
+    def leave_group_chat(self, chat_id: str):
+        chat = self.psnawp_client.group(group_id=chat_id)
+        chat.leave_group()

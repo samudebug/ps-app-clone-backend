@@ -13,6 +13,7 @@ from psapp_clone_backend.modules.chats.features.change_chat_name.change_chat_nam
 from psapp_clone_backend.modules.chats.features.check_chats.check_chats_usecase import CheckChatsUseCase
 from psapp_clone_backend.modules.chats.features.check_conversation.check_conversation_usecase import CheckConversationUseCase
 from psapp_clone_backend.modules.chats.features.create_group_chat.create_group_chat_usecase import CreateGroupChatUseCase
+from psapp_clone_backend.modules.chats.features.leave_group_chat.leave_group_chat_usecase import LeaveGroupChatUseCase
 from psapp_clone_backend.modules.chats.features.send_message.send_message_usecase import SendMessageUseCase
 
 
@@ -68,4 +69,12 @@ def create_group_chat(request: Request, create_group_chat_request: CreateGroupCh
         return JSONResponse(response.error.__str__(), status_code=400)
     return JSONResponse(response.data.model_dump())
     
-    
+@router.delete("/{chat_id}")
+def leave_group_chat(request: Request, chat_id: str):
+    client = PSNAPIClient(request.state.context_data.get("sso_code"))
+    chats_repo = ChatsRepository(client)
+    usecase = LeaveGroupChatUseCase(chats_repo)
+    response = usecase.execute(chat_id)
+    if response is not None and response.error is not None:
+        return JSONResponse({"error": response.error.__str__()}, status_code=400)
+    return JSONResponse({"message": "Left group chat successfully"})

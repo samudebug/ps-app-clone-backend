@@ -25,3 +25,7 @@ class IChatsRepository(ABC):
     @abstractmethod
     def create_group_chat(self, user_ids: List[str]) -> ChatEntity:
         pass
+
+    @abstractmethod
+    def leave_group_chat(self, chat_id: str):
+        pass

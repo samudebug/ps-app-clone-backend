@@ -54,3 +54,7 @@ class IPSNAPIClient(ABC):
     @abstractmethod
     def create_group_chat(self, user_ids: List[str]) -> dict[str, Any]:
         pass
+
+    @abstractmethod
+    def leave_group_chat(self, chat_id: str):
+        pass
