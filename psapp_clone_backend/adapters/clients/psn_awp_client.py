@@ -69,13 +69,14 @@ class PSNAPIClient(IPSNAPIClient):
         games = user.title_stats()
         result = []
         for x in list(games):
+            print(x)
             game_dict = {
                 "id": x.title_id,
                 "name": x.name,
                 "imageUrl": x.image_url,
                 "duration": {
-                    "hours": x.play_duration.seconds // 3600,
-                    "minutes": (x.play_duration.seconds % 3600) // 60,
+                    "hours": x.play_duration.total_seconds() // 3600,
+                    "minutes": (x.play_duration.total_seconds() % 3600) // 60,
                 },
             }
             result.append(game_dict)
