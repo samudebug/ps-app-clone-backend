@@ -16,4 +16,5 @@ class CheckTrophiesByGroupUseCase:
             trophies = self.repo.get_trophies_by_group(title_id, group_id)
             return DataState(data=trophies)
         except Exception as e:
+            self.logger.error(f"Error checking trophies by group: {e}")
             return DataState(error=e)

@@ -27,7 +27,7 @@ def get_games(request: Request):
     
 @router.get("/{title_id}/trophy_groups", response_model=List[TrophyGroupEntity])
 def get_trophy_groups(request: Request, title_id: str):
-    client = PSNAPIClient(request.state.context_data.get("sso_code"))
+    client = PSNAPIClient(request.state.context_data.get("sso_code"), request.headers.get("Accept-Language"))
     games_repo = GamesRepositoryPSN(client)
     usecase = CheckTrophyGroupsUseCase(games_repo)
     response = usecase.execute(title_id)
@@ -37,7 +37,7 @@ def get_trophy_groups(request: Request, title_id: str):
 
 @router.get("/{title_id}/trophy_groups/{group_id}/trophies", response_model=List[TrophyEntity])
 def get_trophies_by_group(request: Request, title_id: str, group_id: str):
-    client = PSNAPIClient(request.state.context_data.get("sso_code"))
+    client = PSNAPIClient(request.state.context_data.get("sso_code"), request.headers.get("Accept-Language"))
     games_repo = GamesRepositoryPSN(client)
     usecase = CheckTrophiesByGroupUseCase(games_repo)
     response = usecase.execute(title_id, group_id)

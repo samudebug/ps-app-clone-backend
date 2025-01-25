@@ -9,8 +9,8 @@ from psapp_clone_backend.modules.profile.adapters.entities.profile_entity import
 from psapp_clone_backend.modules.profile.adapters.repositories.profile_repository import ProfileRepositoryPSN
 from psapp_clone_backend.modules.profile.features.check_devices.check_devices_usecase import CheckDevicesUseCase
 from psapp_clone_backend.modules.profile.features.check_profile.check_profile_usecase import CheckProfileUseCase
-
-
+from psapp_clone_backend.modules.profile.features.get_trophy_summary.get_trophy_summary_usecase import GetTrophySummaryUseCase
+from psapp_clone_backend.modules.profile.adapters.entities.trophy_summary_entity import TrophySummaryEntity
 router = APIRouter(prefix="/profile", tags=["profile"])
 
 
@@ -36,3 +36,14 @@ def get_my_devices(request: Request):
     if response is not None and response.error is not None:
         return JSONResponse(response.error.__str__(), status_code=400)
     return JSONResponse([x.model_dump() for x in response.data])
+
+
+@router.get("/trophies", response_model=TrophySummaryEntity)
+def get_trophy_summary(request: Request):
+    client = PSNAPIClient(request.state.context_data.get("sso_code"))
+    profile_repo = ProfileRepositoryPSN(client)
+    usecase = GetTrophySummaryUseCase(profile_repo)
+    response = usecase.execute()
+    if response is not None and response.error is not None:
+        return JSONResponse(response.error.__str__(), status_code=400)
+    return JSONResponse(response.data.model_dump())

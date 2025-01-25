@@ -4,7 +4,7 @@ from psapp_clone_backend.infrastructure.logging.logging_config import get_logger
 from psapp_clone_backend.modules.profile.adapters.entities.device_entity import DeviceEntity
 from psapp_clone_backend.modules.profile.adapters.entities.profile_entity import ProfileEntity
 from psapp_clone_backend.modules.profile.domain.interfaces.profile_repository import IProfileRepository
-
+from psapp_clone_backend.modules.profile.adapters.entities.trophy_summary_entity import TrophySummaryEntity
 
 class ProfileRepositoryPSN(IProfileRepository):
     client: IPSNAPIClient
@@ -21,3 +21,7 @@ class ProfileRepositoryPSN(IProfileRepository):
     def get_my_devices(self) -> List[DeviceEntity]:
         devices = self.client.get_account_devices()
         return [DeviceEntity(**x) for x in devices]
+    
+    def get_trophy_summary(self) -> TrophySummaryEntity: 
+        summary = self.client.get_trophy_summary()
+        return TrophySummaryEntity(**summary)

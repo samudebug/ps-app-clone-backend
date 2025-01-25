@@ -9,5 +9,6 @@ class ProfileEntity(BaseModel):
     id: str 
     username:str 
     np_id: str 
-    avatar_urls: List[AvatarInfo] 
+    avatar_urls: List[AvatarInfo]
+    full_name: str
     about_me: str
